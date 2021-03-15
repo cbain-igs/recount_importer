@@ -55,7 +55,7 @@ metadata.xlsx               # metadata template
 ##### Installing Recount
 ```library("recount")```
 
-##### Get Project and Dowload Data to Files
+##### Get Project and Download Data to Files
 ```
 >>> project_info <- abstract_search("[GEO name]")
 >>> download_study(project_info$project)
@@ -73,4 +73,4 @@ metadata.xlsx               # metadata template
 ```
 
 # After Downloading Files
-After the fles have been downloaded, you can directly run the script with the commands shown above. Make sure the files are saved in the same location as the script.
+After the files have been downloaded, you can directly run the script with the commands shown above. Make sure the files are saved in the same location as the script.
