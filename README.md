@@ -6,4 +6,71 @@ This script is currently in a 2-script development phase in which libraries and 
 
 In this repository, you will find directions on how to install these libraries, obtain the files and run the Python script.
 
-Required installs:
+# To run script in cmd line
+
+```python3 recount_editor.py [Recount_dataset_name]```
+
+# Files Created
+```
+expression.tab
+genes.tab
+observations.tab
+metadata.xlsx
+[dataset tag]_processed.tar.gz
+```
+
+# Requirements
+
+##### Language Requirements
+```
+python > 3
+R >= 3.6
+```
+
+##### Installations
+```
+R-Hmisc
+```
+
+##### Requirements without Version Specifiers
+```
+tarfile
+csv
+sys
+```
+
+##### Requirements with Version Specifiers
+```
+openpyxl >= 3.0.5
+```
+
+##### Required Files
+```
+human_ensembl.txt           # human conversion table
+metadata.xlsx               # metadata template
+```
+
+# Recount R commands
+
+##### Installing Recount
+```library("recount")```
+
+##### Get Project and Dowload Data to Files
+```
+>>> project_info <- abstract_search("[GEO name]")
+>>> download_study(project_info$project)
+>>> load(file.path(project_info$project, "rse_gene.Rdata"))
+>>> rse <- scale_counts(rse_gene)
+>>> write.table(assays(rse)$counts, file="[expression_file_name].tsv", quote=F, sep="\t")
+>>> write.table(colData(rse_gene), file="[col_metadata_file_name].tsv", quote=F, sep="\t")
+```
+
+##### Getting Project Title and Abstract
+```
+>>> project_info$project
+>>> project_info$abstract
+>>> sink("[file_name].txt")
+```
+
+# After Downloading Files
+After the fles have been downloaded, you can directly run the script with the commands shown above. Make sure the files are saved in the same location as the script.
