@@ -79,4 +79,4 @@ metadata.xlsx               # metadata template
 ```
 
 # After Downloading Files
-After the files have been downloaded, you can directly run the script with the commands shown above. Make sure the files are saved in the same location as the script.
+After the files have been downloaded, you can directly run the script with the Python command shown above. Make sure the files are saved in the same location as the script.
