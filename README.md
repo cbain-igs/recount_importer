@@ -55,6 +55,9 @@ metadata.xlsx               # metadata template
 ##### Creating Conda Env and Installing Recount
 ```
 >>> conda create --name <env> -c bioconda -c r --file requirements.txt
+```
+
+```
 >>> R
 >>> if (!requireNamespace("BiocManager", quietly = TRUE))
 ...   install.packages("BiocManager")
