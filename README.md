@@ -6,7 +6,7 @@ This script is currently in a 2-script development phase in which libraries and 
 
 In this repository, you will find directions on how to install these libraries, obtain the files and run the Python script. A requirements file (```requirements.txt```) is also provided above.
 
-# To run script in cmd line
+# To Run Script in cmd Line
 
 ```python3 recount_editor.py [Recount_dataset_name]```
 
