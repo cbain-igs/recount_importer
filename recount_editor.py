@@ -1,10 +1,6 @@
 import csv
 import tarfile
-import gzip
-import urllib.request
 import openpyxl
-import json
-import os
 import sys
 
 dataset_name = sys.argv[1]
@@ -114,6 +110,10 @@ with open(new_exp_file, 'w') as exp, open(gene_file, 'w') as gene, open(new_colm
         out_line = '\t'.join(out_list)
         col.write(out_line)
         col.write('\n')
+
+# with tarfile.open(out_tar, "w:gz") as tar:
+#     for name in [exp_file, gene_file]:
+#         tar.add(name)
 
 with open("test.txt", "r") as abstract_file:
     abstract_text = abstract_file.readline().strip().replace('"', '').lstrip("[1] ")
