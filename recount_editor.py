@@ -115,10 +115,6 @@ with open(new_exp_file, 'w') as exp, open(gene_file, 'w') as gene, open(new_colm
         col.write(out_line)
         col.write('\n')
 
-# with tarfile.open(out_tar, "w:gz") as tar:
-#     for name in [exp_file, gene_file]:
-#         tar.add(name)
-
 with open("test.txt", "r") as abstract_file:
     abstract_text = abstract_file.readline().strip().replace('"', '').lstrip("[1] ")
 
