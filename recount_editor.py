@@ -75,10 +75,6 @@ with open(new_exp_file, 'w') as exp, open(gene_file, 'w') as gene, open(new_colm
             else:
                 unconverted_count += 1  # if gene passes none of the tests, increments number of uncoverted genes
 
-    with open("hmm.txt", "w") as hmm:  # writes hmm file
-        for i in converted_genes:
-            hmm.write("{}\t{}\n".format(i,converted_genes[i]))
-
     for i in converted_genes:  # writing contents of expression and gene files
         out_line = '\t'.join(converted_genes[i][1])  # gets each line of expression data from dict
         exp.write(out_line)
@@ -100,11 +96,22 @@ with open(new_exp_file, 'w') as exp, open(gene_file, 'w') as gene, open(new_colm
             row[-1] = replace
             col_data[row[0]] = row[-1]
 
-    metadata_length = len(list(col_data.values())[0]) + 1
-    col.write('observations')
-    for i in range(1, metadata_length):  # writing contents of column metadata
-        col.write('\tV{}'.format(str(i)))
-    col.write('\n')
+    col.write('observations\t')
+    
+    # iterates through col_data dict to obtain column names for observations files
+    for i in col_data:
+        for j in range(len(col_data[i])):
+            colon_idx = 0  # index of the colon in the string
+            for k in col_data[i][j]:
+                if k == ':':
+                    phrase = col_data[i][j][colon_idx:]
+                    replace = col_data[i][j].replace(phrase, '')  # deletes anything after the colon
+                    col_name = replace + '\t'
+                    col.write(col_name)
+                    break
+                colon_idx += 1
+        col.write('\n')
+        break
 
     for i in col_data:
         out_list = [i, '\t'.join(col_data[i])]
