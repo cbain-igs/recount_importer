@@ -39,7 +39,7 @@ with open(new_exp_file, 'w') as exp, open(gene_file, 'w') as gene, open(new_colm
     gene.write("gene\tgene_symbol\n")
     conversion_dict = human_conv_dict
     converted_genes = {}  # list of converted genes to prevent duplicates
-    col_data = {}
+    col_data = {}  # dictionary to contain column metadata information
     mean = 0
 
     for row in read_tsv1:
@@ -56,41 +56,41 @@ with open(new_exp_file, 'w') as exp, open(gene_file, 'w') as gene, open(new_colm
                     replace = row[0].replace(phrase, '')
                     row[0] = replace  # deletes all characters after period in name
                 period_idx += 1
-            #exp.write('\t'.join(row))
-            #exp.write('\n')
 
             name = row[0]
             if row[0] in conversion_dict:  # searches for name in conversion dict
-                for i in row[1:]:
+                for i in row[1:]:  # calculates mean of expression data
                     i = float(i)
                     mean += i
                 mean /= (len(row) - 1)
                 mean = abs(mean)
 
                 if conversion_dict[name][0] not in converted_genes:  # if gene name is not in file
-                    converted_genes[conversion_dict[name][0]] = mean, row
-                else:
-                    duplicate_count += 1
+                    converted_genes[conversion_dict[name][0]] = mean, row  # adds gene to dict for later comparison
+                else:  # if gene is already in gene dict
+                    duplicate_count += 1  # adds to duplicate number
+                    # if the gene is present, but has a higher mean expression data value, replaces old version of gene
                     if mean >= converted_genes[conversion_dict[name][0]][0]:
                         converted_genes[conversion_dict[name][0]] = mean, row
             else:
-                unconverted_count += 1
-    with open("hmm.txt", "w") as hmm:
+                unconverted_count += 1  # if gene passes none of the tests, increments number of uncoverted genes
+
+    with open("hmm.txt", "w") as hmm:  # writes hmm file
         for i in converted_genes:
             hmm.write("{}\t{}\n".format(i,converted_genes[i]))
 
-    for i in converted_genes:
-        out_line = '\t'.join(converted_genes[i][1])
+    for i in converted_genes:  # writing contents of expression and gene files
+        out_line = '\t'.join(converted_genes[i][1])  # gets each line of expression data from dict
         exp.write(out_line)
         exp.write('\n')
 
-        gene_contents = (converted_genes[i][1][0], i)
+        gene_contents = (converted_genes[i][1][0], i)  # gets each line of gene data from dict
         out_line2 = '\t'.join(gene_contents)
         gene.write(out_line2)
         gene.write('\n')
 
-    for row in read_tsv2:
-        if row[0] != 'project':
+    for row in read_tsv2:  # iterating through column metadata file
+        if row[0] != 'project':  # if the row contains project, formats line
             idx = 0
             replace = row[-1].strip('c()')
             replace = replace.split('\",')
@@ -102,18 +102,15 @@ with open(new_exp_file, 'w') as exp, open(gene_file, 'w') as gene, open(new_colm
 
     metadata_length = len(list(col_data.values())[0]) + 1
     col.write('observations')
-    for i in range(1, metadata_length):
+    for i in range(1, metadata_length):  # writing contents of column metadata
         col.write('\tV{}'.format(str(i)))
     col.write('\n')
+
     for i in col_data:
         out_list = [i, '\t'.join(col_data[i])]
         out_line = '\t'.join(out_list)
         col.write(out_line)
         col.write('\n')
-
-# with tarfile.open(out_tar, "w:gz") as tar:
-#     for name in [exp_file, gene_file]:
-#         tar.add(name)
 
 with open("test.txt", "r") as abstract_file:
     abstract_text = abstract_file.readline().strip().replace('"', '').lstrip("[1] ")
@@ -130,6 +127,7 @@ contact_email = ws.cell(8, 2)
 contact_institute = ws.cell(9, 2)
 contact_name = ws.cell(10, 2)
 
+# adding metadata attributes
 dataset_type.value = "bulk-rnaseq"
 title.value = dataset_name
 summary.value = abstract_text
@@ -140,13 +138,13 @@ contact_name.value = "Seth Ament"
 
 wb.save(metadata_file_path)
 
-htable.close()
-exp.close()
-gene.close()
-
 with tarfile.open(out_tar, "w:gz") as tar:
     for name in [new_exp_file, gene_file, new_colmetadata_file]:
         tar.add(name)
+
+htable.close()
+exp.close()
+gene.close()
 
 print(unconverted_count, "genes unconverted")
 print(duplicate_count, "duplicates found")
