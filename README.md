@@ -2,7 +2,7 @@
 
 This script imports recount data and transforms it into a manageable format to be uploaded to NeMO Analytics.
 
-Tis script runs an R script with pre-written commands. Simply download all the files from this repository to run the script properly.
+This script also runs an R script with pre-written commands. Simply download all the files from this repository to run the script properly.
 
 In this repository, you will find a requirements file (```requirements.txt```) provided above. All of the necessary files needed to run the script are also provided above.
 
