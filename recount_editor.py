@@ -2,8 +2,11 @@ import csv
 import tarfile
 import openpyxl
 import sys
+import subprocess
 
 dataset_name = sys.argv[1]
+
+subprocess.run(["Rscript", "recount_commands.txt", dataset_name])
 
 exp_file = open("test_expr.tsv")
 read_tsv1 = csv.reader(exp_file, delimiter="\t")
@@ -16,6 +19,7 @@ new_exp_file = "expression.tab"
 gene_file = "genes.tab"
 new_colmetadata_file = "observations.tab"
 out_tar = "recount_processed.tar.gz"
+abstract_file = dataset_name + "_abstract.txt"
 
 human_conv_file = "human_ensembl.txt"
 
@@ -97,7 +101,7 @@ with open(new_exp_file, 'w') as exp, open(gene_file, 'w') as gene, open(new_colm
             col_data[row[0]] = row[-1]
 
     col.write('observations\t')
-    
+
     # iterates through col_data dict to obtain column names for observations files
     for i in col_data:
         for j in range(len(col_data[i])):
@@ -119,7 +123,7 @@ with open(new_exp_file, 'w') as exp, open(gene_file, 'w') as gene, open(new_colm
         col.write(out_line)
         col.write('\n')
 
-with open("test.txt", "r") as abstract_file:
+with open(abstract_file, "r") as abstract_file:
     abstract_text = abstract_file.readline().strip().replace('"', '').lstrip("[1] ")
 
 # editing metadata

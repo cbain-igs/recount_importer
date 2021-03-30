@@ -1,8 +1,12 @@
+# Get accession name
+args = commandArgs(trailingOnly=TRUE)
+accession_number <- args[1]
+
 # Get Recount Library
 library("recount")
 
 # Find a project of interest
-project_info <- abstract_search("GSE32465")
+project_info <- abstract_search(accession_number)
 
 # Download the gene-level RangedSummarizedExperiment data
 download_study(project_info$project)
@@ -12,3 +16,9 @@ load(file.path(project_info$project, "rse_gene.Rdata"))
 
 # Browse the project at SRA
 browse_study(project_info$project)
+
+# Create abstract file
+sink(paste0(accession_number, "_abstract.txt"))
+project_info$abstract
+sink()
+
