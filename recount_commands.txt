@@ -1,0 +1,14 @@
+# Get Recount Library
+library("recount")
+
+# Find a project of interest
+project_info <- abstract_search("GSE32465")
+
+# Download the gene-level RangedSummarizedExperiment data
+download_study(project_info$project)
+
+# Load the data
+load(file.path(project_info$project, "rse_gene.Rdata"))
+
+# Browse the project at SRA
+browse_study(project_info$project)
