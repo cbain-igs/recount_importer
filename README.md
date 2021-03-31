@@ -17,6 +17,8 @@ genes.tab
 observations.tab
 metadata.xlsx
 [accession_name]_abstract.txt
+[accession_name]_expression.tsv
+[accession_name]_col_metadata.tsv
 [accession_name]_processed.tar.gz
 ```
 
