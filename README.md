@@ -41,6 +41,7 @@ tarfile
 csv
 sys
 subprocess
+platform
 ```
 
 ##### Requirements with Version Specifiers
