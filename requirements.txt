@@ -6,3 +6,4 @@ r-hmisc
 openpyxl>=3.0.5
 sys
 subprocess
+platform
