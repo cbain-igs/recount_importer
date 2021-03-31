@@ -17,6 +17,11 @@ load(file.path(project_info$project, "rse_gene.Rdata"))
 # Browse the project at SRA
 browse_study(project_info$project)
 
+# Create expression and column metadata file tables
+rse <- scale_counts(rse_gene)
+write.table(assays(rse)$counts, file=paste0(accession_number, "_expression.tsv"), quote=F, sep="\t")
+write.table(colData(rse_gene), file=paste0(accession_number, "_col_metadata.tsv"), quote=F, sep="\t")
+
 # Create abstract file
 sink(paste0(accession_number, "_abstract.txt"))
 project_info$abstract
