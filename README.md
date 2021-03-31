@@ -8,7 +8,7 @@ In this repository, you will find a requirements file (```requirements.txt```) p
 
 # To Run Script in cmd Line
 
-```python3 recount_editor.py [Recount_dataset_name]```
+```python3 recount_editor.py [accession_name]```
 
 # Files Created
 ```
