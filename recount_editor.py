@@ -8,7 +8,7 @@ import platform
 dataset_name = sys.argv[1]
 
 if platform.system() == "Windows":
-    subprocess.run(["C:/Users/Winston/anaconda3_2020/envs/recount/Scripts/Rscript.exe", "recount_commands.txt", dataset_name])
+    subprocess.run(["Rscript.exe", "recount_commands.txt", dataset_name])
 else:
     subprocess.run(["Rscript", "recount_commands.txt", dataset_name])
 
