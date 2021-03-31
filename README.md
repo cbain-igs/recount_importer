@@ -40,6 +40,7 @@ R-Hmisc
 tarfile
 csv
 sys
+subprocess
 ```
 
 ##### Requirements with Version Specifiers
