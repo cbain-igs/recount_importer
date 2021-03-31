@@ -3,14 +3,21 @@ import tarfile
 import openpyxl
 import sys
 import subprocess
+import platform
 
 dataset_name = sys.argv[1]
 
-subprocess.run(["Rscript", "recount_commands.txt", dataset_name])
+if platform.system() == "Windows":
+    subprocess.run(["C:/Users/Winston/anaconda3_2020/envs/recount/Scripts/Rscript.exe", "recount_commands.txt", dataset_name])
+else:
+    subprocess.run(["Rscript", "recount_commands.txt", dataset_name])
 
-exp_file = open("test_expr.tsv")
+exp_file_name = dataset_name + "_expression.tsv"
+col_metadata_file_name = dataset_name + "_col_metadata.tsv"
+
+exp_file = open(exp_file_name)
 read_tsv1 = csv.reader(exp_file, delimiter="\t")
-colmetadata_file = open("test_colmetadata.tsv")
+colmetadata_file = open(col_metadata_file_name)
 read_tsv2 = csv.reader(colmetadata_file, delimiter="\t")
 metadata_file_path = 'metadata.xlsx'
 sheet_name = 'metadata'
